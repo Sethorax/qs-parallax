@@ -25,7 +25,7 @@ export const QSParallax = () => {
                 }
             } else {
                 if ((scrollTop >= options.startPosition && scrollTop <= options.endPosition) || forceCallback === true) {
-                    let progress = (scrollTop - options.startPosition) / (options.endPosition - options.startPosition);
+                    let progress = Math.ceil((scrollTop - options.startPosition) * 100 / (options.endPosition - options.startPosition)) / 100;
                     
                     if (progress > 1) {
                         progress = 1;
