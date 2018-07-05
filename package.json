@@ -1,8 +1,9 @@
 {
   "name": "qs-parallax",
-  "version": "0.1.1",
-  "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "version": "0.2.0",
+  "main": "dist/index.js",
+  "source": "src/index.ts",
+  "typings": "dist/index.d.ts",
   "license": "MIT",
   "devDependencies": {
     "babel": "^6.23.0",
@@ -20,10 +21,7 @@
   },
   "scripts": {
     "watch": "webpack-dev-server --content-base build --env=dev",
-    "cleanup": "rimraf ./tmp && rimraf ./dist/__tmp.js",
-    "build:pre": "BABEL_ENV=production babel ./src --out-dir ./tmp",
-    "build:main": "microbundle tmp/index.js -o dist/index.js -f cjs --sourcemap false",
-    "build": "npm run build:pre && npm run build:main && npm run cleanup",
+    "build": "microbundle -f cjs --sourcemap false",
     "test": "jest",
     "prepublish": "npm run build"
   }
