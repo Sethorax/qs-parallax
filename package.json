@@ -1,6 +1,6 @@
 {
   "name": "qs-parallax",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/index.js",
   "source": "src/index.ts",
   "typings": "dist/index.d.ts",
@@ -21,7 +21,9 @@
   },
   "scripts": {
     "watch": "webpack-dev-server --content-base build --env=dev",
-    "build": "microbundle -f cjs --sourcemap false",
+    "build:cleanup": "rimraf ./dist",
+    "build:compile": "tsc",
+    "build": "npm run build:cleanup && npm run build:compile",
     "test": "jest",
     "prepublish": "npm run build"
   }

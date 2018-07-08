@@ -1,15 +1,11 @@
-interface Listener {
+export declare type BreakpointListenerCallback = (isBelowBreakpoint: boolean, scrollTop: number) => any;
+export declare type ProgressListenerCallback = (progress: number, scrollTop: number) => any;
+export interface Listener {
     isBelowBreakpoint?: boolean;
     progress?: number;
 }
 export interface Options {
     scrollTarget?: HTMLElement;
-}
-export interface BreakpointListenerCallback {
-    (isBelowBreakpoint: boolean, scrollTop: number): any;
-}
-export interface ProgressListenerCallback {
-    (progress: number, scrollTop: number): any;
 }
 export interface BreakpointListener extends Listener {
     position: number;
@@ -36,4 +32,3 @@ export declare class QSParallax {
     private isBreakpointListener;
     private isProgressListener;
 }
-export {};

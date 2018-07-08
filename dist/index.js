@@ -1,1 +1,31 @@
-var t;!function(t){t[t.Breakpoint=0]="Breakpoint",t[t.Progress=1]="Progress"}(t||(t={}));var s=function(){function t(){this.isListening=!1,this.listeners=[],this.options={scrollTarget:null}}return t.prototype.addListener=function(t){this.listeners.push(t),this.isListening||this.listenOnScroll(),this.checkPositions(!0)},t.prototype.clearListeners=function(){this.listeners=[]},t.prototype.clearListener=function(t){var s=this;this.listeners.forEach(function(i,o){i===t&&s.listeners.splice(o,1)})},t.prototype.setOptions=function(t){this.options=t},t.prototype.checkPositions=function(t){var s=this;void 0===t&&(t=!1);var i=this.getScrollTop();this.listeners.forEach(function(o,e){s.isBreakpointListener(o)?s.checkBreakpointListener(o,e,i,t):s.isProgressListener(o)&&s.checkProgressListener(o,e,i,t)})},t.prototype.listenOnScroll=function(){var t=this;this.isListening=!0,(this.options.scrollTarget?this.options.scrollTarget:document).addEventListener("scroll",function(){window.requestAnimationFrame(function(){t.checkPositions()})})},t.prototype.checkBreakpointListener=function(t,s,i,o){t.isBelowBreakpoint&&i>=t.position?(this.listeners[s].isBelowBreakpoint=!1,t.callback(!0,i)):!t.isBelowBreakpoint&&i<t.position?(this.listeners[s].isBelowBreakpoint=!0,t.callback(!1,i)):!0===o&&t.callback(!0,i)},t.prototype.checkProgressListener=function(t,s,i,o){if(i>=t.startPosition&&i<=t.endPosition||!0===o){var e=(i-t.startPosition)/(t.endPosition-t.startPosition);e>1?e=1:e<0&&(e=0),this.listeners[s].progress=e,t.callback(e,i)}else i>t.endPosition&&t.progress<1?(this.listeners[s].progress=1,t.callback(1,i)):i<t.startPosition&&t.progress>0&&(this.listeners[s].progress=0,t.callback(0,i))},t.prototype.getScrollTop=function(){return null===this.options.scrollTarget?window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0:this.options.scrollTarget.scrollTop},t.prototype.isBreakpointListener=function(t){return t.hasOwnProperty("position")},t.prototype.isProgressListener=function(t){return t.hasOwnProperty("startPosition")},t}(),i=null;function o(){return null===i&&(i=new s),i}exports.addBreakpointListener=function(t,s){var i={position:t,callback:s};o().addListener(i)},exports.addProgressListener=function(t,s,i){var e={startPosition:t,endPosition:s,callback:i};o().addListener(e)},exports.clearListeners=function(){o().clearListeners()},exports.setOptions=function(t){o().setOptions(t)},exports.QSParallax=s;
+import { QSParallax } from './qs-parallax';
+var instance = null;
+function getInstance() {
+    if (instance === null) {
+        instance = new QSParallax();
+    }
+    return instance;
+}
+export { QSParallax } from './qs-parallax';
+export var addBreakpointListener = function (position, callback) {
+    var listener = {
+        position: position,
+        callback: callback
+    };
+    getInstance().addListener(listener);
+};
+export var addProgressListener = function (startPosition, endPosition, callback) {
+    var listener = {
+        startPosition: startPosition,
+        endPosition: endPosition,
+        callback: callback
+    };
+    getInstance().addListener(listener);
+};
+export var clearListeners = function () {
+    getInstance().clearListeners();
+};
+export var setOptions = function (options) {
+    getInstance().setOptions(options);
+};
+//# sourceMappingURL=index.js.map
